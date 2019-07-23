@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Main</title>
+<style th:inline="css">
+body{
+	background: url(/*[[@{/images/logo-spring.png}]]*/) no-repeat;
+}
+</style>
+</head>
+<body>
+	<h2>Main</h2>
+	<!-- 로그아웃은 단순페이지 이동이 아닌 post방식의 폼제출로 이루어져야 한다. -->
+	<form th:action="@{/logout}" method="post">
+		<input type="submit" value="Log Out" />
+	</form>
+</body>
+</html>

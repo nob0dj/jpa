@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="UTF-8">
+<title>Index</title>
+</head>
+<body>
+	<h2>JPA x SpringSecurity</h2>
+	<button id="btn-to-main">Main</button>
+	
+	
+	
+	<fieldset th:fragment="logout" sec:authorize="isAuthenticated()">
+		<legend>로그인한 사용자 정보</legend>
+         <!-- Logged in user: <span sec:authentication="name"></span> | -->					
+         Logged in user: <span sec:authentication="principal.username"></span> |					
+         Roles: <span sec:authentication="principal.authorities"></span>				
+         <div>
+             <form action="#" th:action="@{/logout}" method="post">					
+                 <input type="submit" value="Logout" />
+             </form>
+         </div>
+	</fieldset>
+	<ul>
+		<li sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/admin}">관리자 페이지</a></li>
+		<li sec:authorize="hasRole('ROLE_USER')"><a th:href="@{/main}">메인페이지</a></li>
+		<!-- 내장객체 #authentication을 이용한 path variable 작성하기 -->
+		<!-- <li sec:authorize="isAuthenticated()"><a th:href="@{'/users/'+ ${#authentication.name}}">마이페이지</a></li> -->
+		<li sec:authorize="isAuthenticated()"><a th:href="@{'/users/'+ ${#authentication.principal.username}}">마이페이지</a></li>
+		<li sec:authorize="!isAuthenticated()"><a th:href="@{/user/enroll}">회원가입</a></li>
+	</ul>
+<script th:inline="javascript">
+	let btnToMain = document.querySelector("#btn-to-main");
+	btnToMain.addEventListener('click', ()=>{
+		location.href = /*[[@{/main}]]*/;
+	});
+</script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+############## JPA x SpringSecurity ############## 
+spring:
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/test
+    driver-class-name: org.h2.Driver
+    username: h2
+    password: h2
+  jpa:
+    show-sql: true
+    generate-ddl: true #시작시 스키마 초기화 여부
+    hibernate:
+      ddl-auto: create 
+
+server:
+  port: 11111
