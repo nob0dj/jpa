@@ -1,7 +1,9 @@
 package com.kh.spring.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -13,6 +15,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
 
+import com.kh.spring.user.model.service.UserService;
+
 
 //insecure 테스트용
 //public class SecurityConfig {}
@@ -21,6 +25,9 @@ import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
+	@Autowired
+	UserService userService;
+	
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		//권한이 필요없는 url설정
@@ -78,6 +85,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	public BCryptPasswordEncoder bcryptPasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+
+	
+	/**
+	 * UserDetailsService를 구현한 userService타입을 DI받아서 등록.
+	 * passwordEncoder로 @Bean bcryptPasswordEncoder등록
+	 * 
+	 */
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(userService)
+			.passwordEncoder(bcryptPasswordEncoder());
+	}
+	
 	
 	
 }
