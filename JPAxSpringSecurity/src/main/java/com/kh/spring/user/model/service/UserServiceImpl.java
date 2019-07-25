@@ -23,9 +23,10 @@ public class UserServiceImpl implements UserService{
 	
 	@Override
 	public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
-		User user = userRepository.findByUserId(userId)
+		UserDetails user = userRepository.findByUserId(userId)
 								  .filter(u -> u!=null)
-								  .map(u -> new User(u.getUserId(), u.getPassword(), makeGrantedAuthority(u.getAuthorities())))
+//								  .map(u -> new User(u.getUserId(), u.getPassword(), makeGrantedAuthority(u.getAuthorities())))
+//								  .map(u -> new User(u.getUserId(), u.getPassword(), u.getAuthorities()))
 								  .get();
 		//user: org.springframework.security.core.userdetails.User@584f463: Username: abcde; Password: [PROTECTED]; Enabled: true; AccountNonExpired: true; credentialsNonExpired: true; AccountNonLocked: true; Granted Authorities: USER
 		return user;
@@ -46,7 +47,7 @@ public class UserServiceImpl implements UserService{
 	private Collection<? extends GrantedAuthority> makeGrantedAuthority(List<Authority> authorities) {
 		List<GrantedAuthority> list = new ArrayList<>();
 		authorities.forEach(a -> {
-			list.add(new SimpleGrantedAuthority(a.getAuthName()));
+			list.add(new SimpleGrantedAuthority(a.getAuthority()));
 		});
 		
 		return list;

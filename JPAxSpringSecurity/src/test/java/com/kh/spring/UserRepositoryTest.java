@@ -82,7 +82,7 @@ public class UserRepositoryTest {
 						 .password(bcryptPasswordEncoder.encode("pwd"+i))
 						 .email(new Random().nextBoolean()?"user"+i+"@naver.com":null)
 						 .authorities(authorities)
-						 .eanabled(true)
+						 .enabled(true)
 						 .build();
 			userRepository.save(u);
 		}

@@ -7,9 +7,9 @@ spring:
     password: h2
   jpa:
     show-sql: true
-    generate-ddl: true #시작시 스키마 초기화 여부
+#    generate-ddl: true #시작시 스키마 초기화 여부
     hibernate:
-      ddl-auto: create 
+      ddl-auto: none 
 
 server:
   port: 11111

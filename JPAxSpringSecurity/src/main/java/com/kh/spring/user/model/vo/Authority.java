@@ -3,6 +3,7 @@ package com.kh.spring.user.model.vo;
 import javax.persistence.Entity;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
+import org.springframework.security.core.GrantedAuthority;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,10 +17,16 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(of= {"authName"}, callSuper=true)
-public class Authority extends AbstractPersistable<Long> {
+@ToString(of= {"authority"}, callSuper=true)
+public class Authority extends AbstractPersistable<Long> 
+	/*[[2:직접구현체만들기]]*/ implements GrantedAuthority{
 	
 	
 	@NonNull
-	private String authName;
+	private String authority;
+
+	@Override
+	public String getAuthority() {
+		return authority;
+	}
 }
