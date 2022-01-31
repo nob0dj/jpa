@@ -1,0 +1,33 @@
+# 1.h2 in-memory db 사용하기
+spring:
+  datasource:
+    # h2
+    url: jdbc:h2:tcp://localhost/~/test
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+    
+    # oracle 
+#    url: jdbc:oracle:thin:@127.0.0.1:1521:XE
+#    driver-class-name: oracle.jdbc.OracleDriver
+#    username: spring
+#    password: spring
+  jpa:
+    open-in-view: true
+#    generate-ddl: true #시작시 스키마 초기화 여부
+    hibernate:
+      ddl-auto: none # create create-drop none update validate 
+    properties:
+      hibernate:
+        '[show_sql]': true
+        '[format_sql]': true
+        
+    # oracle dialect 설정
+#    database-platform: org.hibernate.dialect.Oracle10gDialect
+   
+
+
+# logging
+logging:
+  level:
+    '[com.kh.spring]': debug
