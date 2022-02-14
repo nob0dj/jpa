@@ -1,4 +1,4 @@
-package com.kh.spring.member.domain;
+package com.kh.spring.carrier.domain;
 
 public enum TelecomCompany {
 

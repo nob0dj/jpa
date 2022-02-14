@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
+import com.kh.spring.category.domain.Category;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;

@@ -52,7 +52,7 @@ public class Team implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-//	@GeneratedValue(strategy=GenerationType.AUTO) // 기본값
+//	@GeneratedValue(strategy=GenerationType.AUTO) // 기본값 hibernate_sequence객체 자동생성후 채번
 	@GeneratedValue(
 			strategy=GenerationType.SEQUENCE, //사용할 전략을 시퀀스로  선택
             generator="team_sequence") // class level의 @SequenceGenerator 이름 지정
@@ -63,13 +63,13 @@ public class Team implements Serializable {
 	private String name;
 	
 //	@JsonIgnore
-	@Setter(value = AccessLevel.NONE)
-	@OneToMany(mappedBy="team")
+	@Setter(value = AccessLevel.NONE) // setter를 만들지 않는다.
+	@OneToMany(mappedBy="team", fetch = FetchType.EAGER)
 	private List<Member> members = new ArrayList<>(); // 초기화필수
 	
-	public List<Member> getMembers(){
-		return Collections.unmodifiableList(this.members);
-	}
+//	public List<Member> getMembers(){
+//		return Collections.unmodifiableList(this.members);
+//	}
 	
 	public void addMember(Member member) {
 		this.members.add(member);

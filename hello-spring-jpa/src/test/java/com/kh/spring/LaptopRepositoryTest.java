@@ -8,10 +8,13 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.List;
 
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -24,10 +27,10 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kh.spring.client.domain.Client;
+import com.kh.spring.client.repository.ClientRepository;
 import com.kh.spring.laptop.domain.Laptop;
 import com.kh.spring.laptop.repository.LaptopRepository;
-import com.kh.spring.member.domain.Member;
-import com.kh.spring.member.repository.MemberRepository;
 
 
 @DataJpaTest
@@ -40,8 +43,9 @@ class LaptopRepositoryTest {
 	LaptopRepository laptopRepository;
 	
 	@Autowired
-	MemberRepository memberRepository;
+	ClientRepository clientRepository;
 
+	@Disabled
 	@Test
 	@Order(1)
 	void 랩탑등록() {
@@ -57,6 +61,7 @@ class LaptopRepositoryTest {
 	}
 	
 
+	@Disabled
 	@Test
 	void 일대일_단방향1() throws Exception {
 		// given
@@ -64,18 +69,16 @@ class LaptopRepositoryTest {
 		laptop = laptopRepository.save(laptop);
 		
 		// when
-		Member honggd = Member.builder()
-							.id("honggd")
-							.password("2345")
+		Client honggd = Client.builder()
 							.name("홍길동")
 							.build();
 		honggd.setLaptop(laptop);
 
-		honggd = memberRepository.save(honggd);
+		honggd = clientRepository.save(honggd);
 
 		// then
-		Member m = memberRepository.findById(honggd.getId()).get();
-		assertThat("member.laptop.member == member", m, is(sameInstance(m.getLaptop().getMember())));
+		Client m = clientRepository.findById(honggd.getId()).get();
+		assertThat("client.laptop.client == client", m, is(sameInstance(m.getLaptop().getClient())));
 		
 	}
 	
@@ -84,8 +87,11 @@ class LaptopRepositoryTest {
 	 * junit5에서는 @Test(expected)를 사용할 수 없고, AssertThrows(Exception.class, Executable)
 	 * - Executable은 Runnable과 비슷한 junit의 @FunctionalInterface 이다.
 	 * 
+	 * @Transactional(propagation = Propagation.NOT_SUPPORTED) 설정이 반드시 필요하다. 
+	 * 
 	 * @throws Exception
 	 */
+	@Disabled
 	@Test
 	void 일대일_단방향2() throws Exception {
 		// given
@@ -93,23 +99,22 @@ class LaptopRepositoryTest {
 		laptopRepository.save(laptop);
 		
 		// when
-		Member honggd = Member.builder()
-							.id("honggd")
-							.password("2345")
+		Client honggd = Client.builder()
 							.name("홍길동")
 							.build();
-		honggd.setLaptop(laptop);
-		honggd = memberRepository.save(honggd);
 		
-		Member sinsa = Member.builder()
-				.id("sinsa")
-				.password("1234")
+		System.out.println("laptop = " + laptop);
+		System.out.println("honggd = " + honggd);
+		honggd.setLaptop(laptop);
+		honggd = clientRepository.save(honggd);
+		
+		Client sinsa = Client.builder()
 				.name("신사임당")
 				.build();
 		sinsa.setLaptop(laptop);
 		
 		assertThrows(DataIntegrityViolationException.class, () -> {	           
-			memberRepository.save(sinsa);
+			clientRepository.save(sinsa);
         });
 		
 	}
@@ -120,31 +125,57 @@ class LaptopRepositoryTest {
 	 * 
 	 * @throws Exception
 	 */
+	@Disabled
+	@DisplayName("Client에서 Laptop추가하기")
 	@Test
-	void 일대일양방향() throws Exception {
+	void 일대일양방향1() throws Exception {
 		// given
 		Laptop laptop = new Laptop();
-		laptopRepository.save(laptop);
+		laptop = laptopRepository.save(laptop);
 		
-		Member honggd = Member.builder()
-							.id("honggd")
-							.password("2345")
+		Client honggd = Client.builder()
 							.name("홍길동")
 							.build();
 		honggd.setLaptop(laptop);
-		honggd = memberRepository.save(honggd);
-//		System.out.println(laptop); // Laptop [id=1, serialNumber=910374929532817, member=honggd]
-//		System.out.println(honggd); // laptop객체에 member가 설정되어 있지 않다. Member(id=honggd, password=2345, name=홍길동, gender=null, birthday=null, email=null, phone=null, address=null, hobby=null, point=null, enrollDate=2022-01-24 00:00:19.961, enabled=true, team=null, laptop=Laptop [id=1, serialNumber=910374929532817, member=null])
+		honggd = clientRepository.save(honggd);
+//		System.out.println(laptop); // Laptop [id=1, serialNumber=910374929532817, client=honggd]
+//		System.out.println(honggd); // laptop객체에 client가 설정되어 있지 않다. 
 		
 		// when
-		honggd = memberRepository.findById(honggd.getId()).get();
+		honggd = clientRepository.findById(honggd.getId()).get();
 		// then
-		assertEquals(honggd, honggd.getLaptop().getMember());
+		assertEquals(honggd, honggd.getLaptop().getClient());
 
 		// when
 		laptop = laptopRepository.findById(laptop.getId()).get();
 		// then
-		assertEquals(laptop, laptop.getMember().getLaptop());
+		assertEquals(laptop, laptop.getClient().getLaptop());
 	}
 
+	@DisplayName("Laptop에서 Client추가하기")
+//	@Disabled
+	@Test
+	void 일대일양방향2() throws Exception {
+		// given
+		Client honggd = Client.builder()
+				.name("홍길동")
+				.build();
+		honggd = clientRepository.save(honggd);
+		
+		// when
+		Laptop laptop = new Laptop();
+		laptop.setClient(honggd);
+		laptop = laptopRepository.save(laptop); // 단 자바객체관계만 형성된 것이고, client테이블에 대한 update문을 실행하지 않는다. (외래키주인이 아니므로)
+		
+		// then
+		assertNotNull(honggd.getLaptop());
+		assertEquals(laptop, honggd.getLaptop());
+		
+		// when
+		honggd = clientRepository.save(honggd);
+		Client client = clientRepository.findById(honggd.getId()).get();
+		System.out.println(client);
+		// then 
+		assertEquals(laptop, client.getLaptop());
+	}
 }

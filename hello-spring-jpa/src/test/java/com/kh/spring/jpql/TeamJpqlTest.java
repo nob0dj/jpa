@@ -3,19 +3,20 @@ package com.kh.spring.jpql;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.empty;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 
-import com.kh.spring.TestDataUtils;
 import com.kh.spring.carrier.repository.CarrierRepository;
 import com.kh.spring.member.domain.Member;
 import com.kh.spring.member.repository.MemberRepository;
@@ -30,10 +31,8 @@ import lombok.extern.slf4j.Slf4j;
  *
  */
 @Slf4j
-//@SpringBootTest 
-//@Transactional
-@DataJpaTest
-@AutoConfigureTestDatabase(replace = Replace.NONE)
+@SpringBootTest 
+@Transactional
 class TeamJpqlTest {
 
 	@Autowired
@@ -45,13 +44,19 @@ class TeamJpqlTest {
 	@Autowired
 	TeamRepository teamRepository;
 	
-//	@Autowired
-	TestDataUtils testDataUtils;
+	@Autowired
+	SampleDataUtils testDataUtils;
 	
-//	@BeforeEach
-	void setUp() throws Exception {
-		testDataUtils.initMemberData();
-	}
+	
+	/**
+	 * sample data 최초 1회 생성후 hibernate.ddl-auto=none 설정후 테스트한다.
+	 * @throws Exception
+	 */
+//	@Rollback(false)
+//	@Test
+//	void testName() throws Exception {
+//		testDataUtils.insertData();
+//	}
 	
 //	@Disabled
 	@Test
@@ -85,8 +90,7 @@ class TeamJpqlTest {
 		
 	}
 
-
-	
+//	@Disabled
 	@Test
 	@DisplayName("jpql - Team")
 	void test2() throws Exception {

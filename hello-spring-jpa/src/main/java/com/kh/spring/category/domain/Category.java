@@ -1,4 +1,4 @@
-package com.kh.spring.product.domain;
+package com.kh.spring.category.domain;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +9,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+
+import com.kh.spring.product.domain.Product;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

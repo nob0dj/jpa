@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,7 +13,6 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -37,9 +37,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "member", uniqueConstraints = {
-		@UniqueConstraint(name = "uq_member_email", columnNames = {"email"}),
-		@UniqueConstraint(name = "uq_member_laptop_id", columnNames = {"laptop_id"})
-		})
+		@UniqueConstraint(name = "uq_member_email", columnNames = {"email"})})
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -91,12 +89,24 @@ public class Member implements Serializable {
 	private Boolean enabled;
 	
 	/**
-	 * 한 회원은 하나의 그룹에 속할 수 있다.
-	 * 회원 - 그룹 : N - 1
-	 * 그룹 - 회원 : 1 - N
+	 * insert하기전 실행.
+	 * 
+	 * @DynamicInsert 로 실행시 해당필드가 제외되므로 기본값으로 insert되지만, 
+	 * 영속성 컨텍스트 1차캐시의 entity는 해당필드가 null인 상태로 관리된다.
+	 */
+	@PrePersist
+	public void prePersist() {
+        enrollDate = enrollDate == null ? new Timestamp(System.currentTimeMillis()) : enrollDate; 
+        enabled = enabled == null ? true : enabled; 
+    }	
+	
+	/**
+	 * 한 회원은 하나의 팀에 속할 수 있다.
+	 * - 회원 - 그룹 : N - 1
+	 * - 그룹 - 회원 : 1 - N
 	 * 
 	 */
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "team_id")
 	@JsonIgnoreProperties({"hibernateLazyInitializer"})
 	private Team team;
@@ -108,56 +118,20 @@ public class Member implements Serializable {
 			this.team.getMembers().remove(this);
 		
 		this.team = team;
-		if(team != null)
-			if(!team.getMembers().contains(this))
-				team.getMembers().add(this);
 		
-//		Optional.ofNullable(team)
-//			.ifPresent(t -> {
-//				// 무한루프에 빠지지 않도록 확인
-//				if(!t.getMembers().contains(this))
-//					t.getMembers().add(this);
-//			});
+		Optional.ofNullable(team)
+			.ifPresent(t -> {
+				// 무한루프에 빠지지 않도록 확인
+				if(!t.getMembers().contains(this))
+					t.getMembers().add(this);
+			});
+		
+		// Optional 코드와 동일
+//		if(team != null)
+//		if(!team.getMembers().contains(this))
+//			team.getMembers().add(this);
 
 	}
-	
-	/**
-	 * insert하기전 실행.
-	 * 
-	 * @DynamicInsert 로 실행시 해당필드가 제외되므로 기본값으로 insert되지만, 
-	 * 영속성 컨텍스트 1차캐시의 entity는 해당필드가 null인 상태로 관리된다.
-	 */
-	@PrePersist
-	public void prePersist() {
-        enrollDate = enrollDate == null ? new Timestamp(System.currentTimeMillis()) : enrollDate; 
-        enabled = enabled == null ? true : enabled; 
-    }
-	
-	/**
-	 * 일대일 - 주테이블에 외래키
-	 */
-	@OneToOne
-	@JoinColumn(name = "laptop_id")
-	private Laptop laptop;
-	
-	public void setLaptop(Laptop laptop) {
-		
-		// 기존 laptop에서 member제거
-		if(this.laptop != null && this.laptop != laptop)
-			this.laptop.setMember(null);
-		
-		this.laptop = laptop;
-		if(laptop != null && laptop.getMember() != this) {
-			laptop.setMember(this);
-		}
-	}
-	
-	/**
-	 * 일대일 - 대상테이블에 외래키 
-	 * 양방향만 가능
-	 */
-	@OneToOne(mappedBy="member")
-	private Room room;
 	
 	//EmmbeddedType
 	@Embedded

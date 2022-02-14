@@ -1,4 +1,4 @@
-package com.kh.spring;
+package com.kh.spring.jpql;
 
 import java.sql.Date;
 import java.util.Arrays;
@@ -7,12 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.kh.spring.carrier.domain.Carrier;
+import com.kh.spring.carrier.domain.TelecomCompany;
 import com.kh.spring.carrier.repository.CarrierRepository;
 import com.kh.spring.member.domain.Address;
 import com.kh.spring.member.domain.Gender;
 import com.kh.spring.member.domain.Member;
 import com.kh.spring.member.domain.Phone;
-import com.kh.spring.member.domain.TelecomCompany;
 import com.kh.spring.member.repository.MemberRepository;
 import com.kh.spring.team.domain.Team;
 import com.kh.spring.team.repository.TeamRepository;
@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 @Component
 @Data
 @NoArgsConstructor
-public class TestDataUtils {
+public class SampleDataUtils {
 	
 	@Autowired
 	MemberRepository memberRepository;
@@ -35,7 +35,7 @@ public class TestDataUtils {
 	@Autowired
 	TeamRepository teamRepository;
 	
-	public void initMemberData() {
+	public void insertData() {
 		// 영속성전이 Phone#carrier(cascade=CacadeType.All)로 생성하면 계속 insert into carrier를 실행하므로, 별도로 관리
 		Carrier kt = new Carrier(TelecomCompany.KT); 
 		Carrier sk = new Carrier(TelecomCompany.SK); 

@@ -8,9 +8,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.kh.spring.carrier.domain.TelecomCompany;
 import com.kh.spring.member.domain.Gender;
 import com.kh.spring.member.domain.Member;
-import com.kh.spring.member.domain.TelecomCompany;
 import com.kh.spring.team.domain.Team;
 
 public interface MemberRepository extends JpaRepository<Member, String> {

@@ -17,7 +17,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "order_") // order는 sql 예약어이다.
+@Table(name = "orders") // order는 sql 예약어이다.
 @Data
 @NoArgsConstructor
 public class Order {

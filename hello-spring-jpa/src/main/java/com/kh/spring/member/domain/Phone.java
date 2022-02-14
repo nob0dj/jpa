@@ -1,5 +1,6 @@
 package com.kh.spring.member.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
 
@@ -15,7 +16,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Phone {
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Carrier carrier;
 	
 	private String phoneNumber;

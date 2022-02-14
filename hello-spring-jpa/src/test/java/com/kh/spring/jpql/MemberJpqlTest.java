@@ -14,22 +14,21 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 
-import com.kh.spring.TestDataUtils;
+import com.kh.spring.carrier.domain.TelecomCompany;
 import com.kh.spring.carrier.repository.CarrierRepository;
 import com.kh.spring.member.domain.Gender;
 import com.kh.spring.member.domain.Member;
-import com.kh.spring.member.domain.TelecomCompany;
 import com.kh.spring.member.repository.MemberRepository;
 import com.kh.spring.team.domain.Team;
 import com.kh.spring.team.repository.TeamRepository;
@@ -37,8 +36,8 @@ import com.kh.spring.team.repository.TeamRepository;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@DataJpaTest
-@AutoConfigureTestDatabase(replace = Replace.NONE)
+@SpringBootTest 
+@Transactional
 class MemberJpqlTest {
 
 	@Autowired
@@ -50,6 +49,8 @@ class MemberJpqlTest {
 	@Autowired
 	TeamRepository teamRepository;
 	
+	@Autowired
+	SampleDataUtils sampleDataUtils;
 	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -57,15 +58,18 @@ class MemberJpqlTest {
 		
 	}
 
-	@Autowired
-	TestDataUtils testDataUtils;
 	
-	@BeforeEach
-	void setUp() throws Exception {
-		testDataUtils.initMemberData();	
-	}
+	/**
+	 * sample data 최초 1회 생성후 hibernate.ddl-auto=none 설정후 테스트한다.
+	 * @throws Exception
+	 */
+//	@Rollback(false)
+//	@Test
+//	void testName() throws Exception {
+//		testDataUtils.insertData();
+//	}
 
-	@Disabled
+//	@Disabled
 	@Test
 	@DisplayName("쿼리메소드")
 	@Rollback(false)

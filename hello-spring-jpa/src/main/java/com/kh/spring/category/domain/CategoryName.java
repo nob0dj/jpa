@@ -1,4 +1,4 @@
-package com.kh.spring.product.domain;
+package com.kh.spring.category.domain;
 
 public enum CategoryName {
 	CUP,

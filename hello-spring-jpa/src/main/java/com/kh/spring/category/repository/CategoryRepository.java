@@ -1,9 +1,9 @@
-package com.kh.spring.product.repository;
+package com.kh.spring.category.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.kh.spring.product.domain.Category;
-import com.kh.spring.product.domain.CategoryName;
+import com.kh.spring.category.domain.Category;
+import com.kh.spring.category.domain.CategoryName;
 
 public interface CategoryRepository extends JpaRepository<Category, Long>{
 

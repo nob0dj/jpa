@@ -7,17 +7,21 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
-import com.kh.spring.member.domain.Member;
+import com.kh.spring.client.domain.Client;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Table(name = "room", uniqueConstraints = {
+		@UniqueConstraint(name = "uq_room_client_id", columnNames = {"client_id"})})
 @Data
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = "member")
+@EqualsAndHashCode(exclude = "client")
 public class Room implements Serializable {
 
 	@Id
@@ -25,24 +29,25 @@ public class Room implements Serializable {
 	private Long id;
 	
 	@OneToOne
-	@JoinColumn(name = "member_id")
-	private Member member;
+	@JoinColumn(name = "client_id")
+	private Client client;
 	
-//	public void setMember(Member member) {
-//		if(this.member != null) {
-//			this.member.setRoom(null);
-//		}
-//		
-//		this.member = member;
-//		
-//		if(member != null && member.getRoom() != this) {
-//			member.setRoom(this);
-//		}
-//	}
-
+	public void setClient(Client client) {
+		// 이전 client에서 room 제거
+		if(this.client != null)
+			if(client != null && client.getRoom() != this)
+				client.setRoom(null);
+		
+		this.client = client;
+		
+		// 양방향 편의
+		if(client != null && client.getRoom() != this)
+			client.setRoom(this);
+	}
+	
 	@Override
 	public String toString() {
-		return "Room [id=" + id + ", member=" + (member != null ? member.getId() : null) + "]";
+		return "Room [id=" + id + ", client=" + (client != null ? client.getId() : null) + "]";
 	}
 	
 	

@@ -11,8 +11,6 @@ import javax.persistence.PrePersist;
 
 import org.hibernate.annotations.ColumnDefault;
 
-import com.kh.spring.member.domain.Member;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -34,13 +32,13 @@ public class Follow {
 	@MapsId("followee") // FollowId#followee
 	@ManyToOne
 	@JoinColumn(name = "followee")
-	private Member followee;
+	private AppUser followee;
 	
 	@NonNull
 	@MapsId("follower") // FollowId#follower 
 	@ManyToOne
 	@JoinColumn(name = "follower")
-	private Member follower;
+	private AppUser follower;
 	
 	@ColumnDefault("systimestamp") // for DDL only 
 	private Timestamp followDate;

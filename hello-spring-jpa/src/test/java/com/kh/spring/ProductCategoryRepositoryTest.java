@@ -10,15 +10,17 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 
-import com.kh.spring.product.domain.Category;
-import com.kh.spring.product.domain.CategoryName;
+import com.kh.spring.category.domain.Category;
+import com.kh.spring.category.domain.CategoryName;
+import com.kh.spring.category.repository.CategoryRepository;
 import com.kh.spring.product.domain.Product;
-import com.kh.spring.product.repository.CategoryRepository;
 import com.kh.spring.product.repository.ProductRepository;
 
 /**
@@ -29,7 +31,7 @@ import com.kh.spring.product.repository.ProductRepository;
  * 
  *
  */
-//@RunWith(Runner.class)
+//@RunWith(Runner.class) // JUnit4인 경우 필요하다.
 @SpringBootTest
 class ProductCategoryRepositoryTest {
 
@@ -58,9 +60,15 @@ class ProductCategoryRepositoryTest {
 			assertEquals(categoryNameValues[i], categories.get(i).getCategoryName());
 	}
 	
+	
+	/**
+	 * 단방향
+	 */
+	@Disabled
 	@Test
 	@Transactional
-	@DisplayName("Product등록")
+	@Rollback(false)
+	@DisplayName("단방향 - Product등록")
 	void test2() {
 		// given
 		Category category1 = categoryRepository.findByCategoryName(CategoryName.CLOCK);
@@ -81,9 +89,11 @@ class ProductCategoryRepositoryTest {
 		assertTrue(p.getCategories().contains(category2));
 	}
 	
+//	@Disabled
 	@Test
+	@Rollback(false)
 	@Transactional
-	@DisplayName("양방향 테스트")
+	@DisplayName("양방향 테스트 - mappedBy")
 	void test3() {
 		// given
 		Category category = categoryRepository.findByCategoryName(CategoryName.CLOCK);
@@ -91,13 +101,13 @@ class ProductCategoryRepositoryTest {
 		Product product1 = new Product("TimeFlowsCup");
 //		product1.getCategories().add(category);
 //		category.getProducts().add(product1);
-		product1.addCategory(category);
+		product1.addCategory(category); // 편의메소드 처리
 		productRepository.save(product1);
 		
 		Product product2 = new Product("MinimalCementClock");
 //		product2.getCategories().add(category);
 //		category.getProducts().add(product2);
-		product2.addCategory(category);
+		product2.addCategory(category); // 편의메소드 처리
 		productRepository.save(product2);
 		
 		// when
@@ -107,9 +117,7 @@ class ProductCategoryRepositoryTest {
 		// then
 		assertEquals(2, products.size());
 		assertTrue(products.contains(product1));
-		assertTrue(products.contains(product2));
-		
-		
+		assertTrue(products.contains(product2));		
 		
 	}
 	

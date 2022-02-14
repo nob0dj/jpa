@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -54,12 +55,13 @@ class TeamRepositoryTest {
 	
 	@Disabled
 	@Test
+	@Rollback(false)
 	public void test2() {
 		// given
 		Team team = new Team("happy hour");
 //		// when
 		// Member.team에 @ManyToOne(cascade = CascadeType.ALL) 지정하지 않았다면 먼저 save해서 영속상태로 만들어야 한다.
-//		teamRepository.save(team);
+		team = teamRepository.save(team);
 		
 		// given
 		Member member = Member.builder()
@@ -109,6 +111,7 @@ class TeamRepositoryTest {
 		
 	}
 	
+	@Disabled
 	@Test
 	@Transactional
 	void test4() throws Exception {
@@ -157,8 +160,8 @@ class TeamRepositoryTest {
 	 * 
 	 * @throws Exception
 	 */
-	@Test
 	@Disabled
+	@Test
 	void 객체참조그래프완성1() throws Exception {
 		// given
 		Team team = new Team("happy hour");
@@ -226,7 +229,7 @@ class TeamRepositoryTest {
 	 * 
 	 * @throws Exception
 	 */
-	@Disabled
+//	@Disabled
 	@Test
 	void 객체참조그래프완성3() throws Exception {
 		// given
@@ -238,7 +241,6 @@ class TeamRepositoryTest {
 						.password("1234")
 						.name("홍길동")
 						.build();
-		honggd.setTeam(team1);
 		honggd.setTeam(team1);
 		
 		memberRepository.save(honggd);

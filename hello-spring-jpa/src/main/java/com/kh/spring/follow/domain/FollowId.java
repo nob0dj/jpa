@@ -27,7 +27,7 @@ public class FollowId implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private String followee; // Member#id 타입
+	private String followee; // AppUser#id 타입
  	
-	private String follower; // Member#id 타입
+	private String follower; // AppUser#id 타입
 }

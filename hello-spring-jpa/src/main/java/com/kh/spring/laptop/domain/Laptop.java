@@ -11,12 +11,14 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 
-import com.kh.spring.member.domain.Member;
+import com.kh.spring.client.domain.Client;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Entity
 @Data
+@EqualsAndHashCode(exclude = "client")
 public class Laptop implements Serializable {
 
 	/**
@@ -35,9 +37,16 @@ public class Laptop implements Serializable {
 	 * 양방향으로 추가
 	 */
 	@OneToOne(mappedBy = "laptop")
-	private Member member;
+	private Client client;
 	
-	
+	public void setClient(Client client) {
+		System.out.println(this.client);
+		if(this.client != null)
+				this.client.setLaptop(null);
+		this.client = client;
+		if(client != null && client.getLaptop() != this)
+			client.setLaptop(this);
+	}
 	
 	
 	@PrePersist
@@ -52,7 +61,7 @@ public class Laptop implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Laptop [id=" + id + ", serialNumber=" + serialNumber + ", member=" + (member != null ? member.getId() : member) + "]";
+		return "Laptop [id=" + id + ", serialNumber=" + serialNumber + ", client=" + (client != null ? client.getId() : client) + "]";
 	}
 
 

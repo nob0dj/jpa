@@ -23,6 +23,11 @@ public class OrderProduct {
 	@JoinColumn(name = "order_id")
 	private Order order; // OrderProductId#order와 연결
 	
+	/**
+	 * 양방향 처리
+	 * - Order에서 OrderProduct를 읽기전용으로 참조만 한다.
+	 * @param order
+	 */
 	public void setOrder(Order order) {
 		this.order = order;
 		if(order != null && !order.getOrderProducts().contains(this))
@@ -36,6 +41,7 @@ public class OrderProduct {
 	
 	private int productAmount;
 
+	// 무한루프 방지용
 	@Override
 	public String toString() {
 		return "OrderProduct [order=" + order.getId() + ", product=" + product.getId() + ", productAmount=" + productAmount + "]";
