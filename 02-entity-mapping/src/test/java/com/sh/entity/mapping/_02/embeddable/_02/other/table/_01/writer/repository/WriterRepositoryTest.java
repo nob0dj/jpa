@@ -33,7 +33,7 @@ class WriterRepositoryTest {
         assertThat(writer.getId()).isNotNull().isNotZero();
         assertThat(writer).isSameAs(writer2);
 
-        Writer writer3 = writerRepository.findById(writer.getId()).get();
+        Writer writer3 = writerRepository.findById(writer.getId()).get(); // 영속성 컨텍스트에 entity객체가 있으므로 select쿼리 실행 안함
         assertThat(writer2).isSameAs(writer3);
     }
 }

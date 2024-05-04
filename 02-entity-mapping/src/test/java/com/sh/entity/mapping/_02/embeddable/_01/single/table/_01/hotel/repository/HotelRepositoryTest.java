@@ -30,7 +30,7 @@ class HotelRepositoryTest {
         // test trasaction에서는 dml쿼리를 실제 실행하지 않으므로, flush를 호출해서 쿼리 확인 (역시 rollback 된다.)
         hotelRepository.flush();
         // then
-        Hotel hotel2 = hotelRepository.findById(hotel.getId()).get();
+        Hotel hotel2 = hotelRepository.findById(hotel.getId()).get(); // 영속성 컨텍스트에 entity객체가 있으므로 select쿼리 실행 안함
         System.out.println(hotel2); // Hotel(id=H1234, name=강남쉴라, year=2024, grade=S1, address=Address(address1=서울시 강남구, address2=테헤란로 1234, zipcode=0321), createdAt=2024-05-15T15:09:23.570125, updatedAt=null)
         // equals 비교(재귀)
         assertThat(hotel)

@@ -22,9 +22,9 @@ class UserRepositoryTest {
         Address workAddress = new Address("서울시 강남구", "역삼동 123", "01234");
         User user = new User("honggd", homeAddress, workAddress);
         // when
-        user = userRepository.save(user);
+        user = userRepository.saveAndFlush(user);
         // then
-        User user2 = userRepository.findById(user.getId()).get();
+        User user2 = userRepository.findById(user.getId()).get(); // 영속성 컨텍스트에 entity객체가 있으므로 select쿼리 실행 안함
         System.out.println(user2);
     }
 }
