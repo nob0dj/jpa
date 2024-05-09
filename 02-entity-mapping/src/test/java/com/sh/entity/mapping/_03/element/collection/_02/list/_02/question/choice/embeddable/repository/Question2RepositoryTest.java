@@ -7,18 +7,15 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.test.annotation.Rollback;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
-@Transactional(propagation = Propagation.NOT_SUPPORTED) // 트랜잭션사용안함. 자동롤백하지 않음(실제 db반영)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class Question2RepositoryTest {
-
     @Autowired
     Question2Repository question2Repository;
 
@@ -31,6 +28,7 @@ class Question2RepositoryTest {
 
     @DisplayName("Question-Choice 등록")
     @Test
+    @Rollback(false)
     public void test() throws Exception {
         // given
         Question2 question = new Question2(null, "다음 각 문자의 참거짓을 작성하세요.", List.of(choices));
