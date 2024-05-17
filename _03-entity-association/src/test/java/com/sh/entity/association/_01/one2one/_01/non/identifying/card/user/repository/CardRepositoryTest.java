@@ -1,7 +1,7 @@
-package com.sh.entity.association._01.one2one._01.non.identifying.user.card.repository;
+package com.sh.entity.association._01.one2one._01.non.identifying.card.user.repository;
 
-import com.sh.entity.association._01.one2one._01.non.identifying.user.card.entity.Card;
-import com.sh.entity.association._01.one2one._01.non.identifying.user.card.entity.User;
+import com.sh.entity.association._01.one2one._01.non.identifying.card.user.entity.Card;
+import com.sh.entity.association._01.one2one._01.non.identifying.card.user.entity.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

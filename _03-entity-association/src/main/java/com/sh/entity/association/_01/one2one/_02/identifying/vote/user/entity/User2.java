@@ -1,4 +1,4 @@
-package com.sh.entity.association._01.one2one._02.identifying.user.vote.entity;
+package com.sh.entity.association._01.one2one._02.identifying.vote.user.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

@@ -1,4 +1,4 @@
-package com.sh.entity.association._01.one2one._01.non.identifying.user.card.entity;
+package com.sh.entity.association._01.one2one._01.non.identifying.card.user.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

@@ -1,7 +1,7 @@
-package com.sh.entity.association._01.one2one._02.identifying.user.vote.repository;
+package com.sh.entity.association._01.one2one._02.identifying.vote.user.repository;
 
-import com.sh.entity.association._01.one2one._02.identifying.user.vote.entity.User2;
-import com.sh.entity.association._01.one2one._02.identifying.user.vote.entity.Vote;
+import com.sh.entity.association._01.one2one._02.identifying.vote.user.entity.User2;
+import com.sh.entity.association._01.one2one._02.identifying.vote.user.entity.Vote;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
