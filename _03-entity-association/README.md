@@ -9,3 +9,11 @@ entity간 연관관계를 적용하기전에 Value(@Embeddable)로 매핑가능�
 ## N:1 단방향
 
 ## 1:N 단방향
+collection을 사용한 매핑이 가능하다.
+
+### 1. Set
+
+### 2. List
+
+### 3. Map
+
