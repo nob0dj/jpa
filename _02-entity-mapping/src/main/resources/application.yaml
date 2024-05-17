@@ -1,6 +1,4 @@
 spring:
-  application:
-      name: ddd
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/ddddb
@@ -13,7 +11,7 @@ spring:
       hibernate:
         format_sql: true
         hbm2ddl:
-          auto: create # ddl ???? (?????? create, create-drop, ?? update, ?? none, validate)
+          auto: create # create, create-drop | update | none, validate
 logging:
   level:
     root: info
