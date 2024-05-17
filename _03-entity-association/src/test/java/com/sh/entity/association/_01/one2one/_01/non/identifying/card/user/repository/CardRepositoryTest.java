@@ -24,6 +24,7 @@ class CardRepositoryTest {
     String email = "honggd@gmail.com";
     @BeforeEach
     void setUp() {
+        // true인 경우에만 test를 진행한다. (@BeforeEach에서 assumeTrue결과가 거짓이면 @Test 메소드를 실행하지 않는다.)
         assumeTrue(userRepository.findById(email).isEmpty());
         userRepository.saveAndFlush(new User(email, "홍길동", null));
     }
