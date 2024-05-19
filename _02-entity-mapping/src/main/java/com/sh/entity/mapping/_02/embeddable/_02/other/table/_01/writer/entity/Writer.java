@@ -26,6 +26,12 @@ public class Writer {
     @Embedded
     private Intro intro;
 
+    /**
+     * <pre>
+     * - @AttributeOverride(name) embedded 클래스의 field명
+     * - @AttributeOverride(column = @Column(table, name)) db테이블, column명
+     * </pre>
+     */
     @Embedded
     @AttributeOverrides({
             @AttributeOverride(name = "address1", column = @Column(table = "writer_address", name = "addr1")),
