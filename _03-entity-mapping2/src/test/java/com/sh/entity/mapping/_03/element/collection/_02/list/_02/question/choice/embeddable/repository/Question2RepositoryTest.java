@@ -26,6 +26,23 @@ class Question2RepositoryTest {
             new Choice("소는 게으르다", true)
     };
 
+    /*
+        create table question2 (
+            id bigint not null auto_increment,
+            text varchar(255),
+            primary key (id)
+        ) engine=InnoDB
+
+        create table question_choice2 (
+            idx integer not null,
+            input bit,
+            question_id bigint not null,
+            text varchar(255),
+            primary key (idx, question_id)
+        ) engine=InnoDB
+
+     */
+
     @DisplayName("Question-Choice 등록")
     @Test
     @Rollback(false)

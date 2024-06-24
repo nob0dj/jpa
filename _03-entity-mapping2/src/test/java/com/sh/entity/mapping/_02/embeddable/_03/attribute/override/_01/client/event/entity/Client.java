@@ -10,4 +10,5 @@ import lombok.*;
 @ToString
 public class Client {
     public Long code;
+    public String name;
 }

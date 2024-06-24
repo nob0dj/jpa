@@ -1,9 +1,4 @@
-# 02-entity-mapping
-
-
-
-## 01-basics
-
+# 03-entity-mapping2
 
 ## 02-embeddable
 ### 1. value를 같은 테이블에 저장하는 경우

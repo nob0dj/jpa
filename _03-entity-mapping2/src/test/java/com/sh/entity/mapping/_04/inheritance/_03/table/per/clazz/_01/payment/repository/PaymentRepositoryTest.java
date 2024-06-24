@@ -19,6 +19,25 @@ import static org.assertj.core.api.Assertions.assertThat;
 class PaymentRepositoryTest {
     @Autowired
     PaymentRepository paymentRepository;
+
+    /*
+        create table credit_card (
+            amount integer not null,
+            id bigint not null,
+            card_number varchar(255),
+            expiry_date varchar(255),
+            primary key (id)
+        ) engine=InnoDB
+
+        create table bank_transfer (
+            amount integer not null,
+            id bigint not null,
+            account_number varchar(255),
+            bank_name varchar(255),
+            primary key (id)
+        ) engine=InnoDB
+     */
+
     @DisplayName("CreditCard 등록")
     @Test
     public void test() throws Exception {

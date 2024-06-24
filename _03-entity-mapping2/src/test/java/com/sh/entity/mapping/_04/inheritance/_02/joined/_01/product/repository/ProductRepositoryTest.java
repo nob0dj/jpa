@@ -20,6 +20,29 @@ class ProductRepositoryTest {
     @Autowired
     ProductRepository productRepository;
 
+    /*
+        create table product (
+            price integer not null,
+            id bigint not null auto_increment,
+            dtype varchar(31) not null,
+            name varchar(255),
+            primary key (id)
+        ) engine=InnoDB
+
+        create table book (
+            id bigint not null,
+            author varchar(255),
+            isbn varchar(255),
+            primary key (id)
+        ) engine=InnoDB
+
+        create table clothing (
+            id bigint not null,
+            material varchar(255),
+            size varchar(255),
+            primary key (id)
+        ) engine=InnoDB
+     */
     @DisplayName("Book 등록")
     @Test
     public void test() throws Exception {

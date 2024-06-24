@@ -18,6 +18,20 @@ class Role2RepositoryTest {
     @Autowired
     Role2Repository role2Repository;
 
+    /*
+        create table role2 (
+            id varchar(255) not null,
+            name varchar(255),
+            primary key (id)
+        ) engine=InnoDB
+
+        create table role_permission2 (
+            grantor varchar(255),
+            perm varchar(255),
+            role_id varchar(255) not null
+        ) engine=InnoDB
+     */
+
     @DisplayName("Role-Permission 등록 및 조회")
     @Test
     public void test() throws Exception {

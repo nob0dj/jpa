@@ -14,6 +14,19 @@ class UserRepositoryTest {
     @Autowired
     UserRepository userRepository;
 
+    /*
+        create table user (
+            addr1 varchar(255),
+            addr2 varchar(255),
+            id varchar(255) not null,
+            work_addr1 varchar(255),
+            work_addr2 varchar(255),
+            work_zipcode varchar(255),
+            zipcode varchar(255),
+            primary key (id)
+        ) engine=InnoDB
+     */
+
     @DisplayName("회원 등록 및 조회")
     @Test
     public void test() throws Exception {

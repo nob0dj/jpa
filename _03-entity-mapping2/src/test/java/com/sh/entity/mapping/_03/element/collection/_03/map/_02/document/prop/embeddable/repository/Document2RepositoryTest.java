@@ -20,6 +20,23 @@ class Document2RepositoryTest {
     Document2Repository document2Repository;
     Map<String, PropValue> props = Map.of("view", new PropValue("everyone", true), "edit", new PropValue("owner", true));
 
+    /*
+        create table doc2 (
+            id bigint not null auto_increment,
+            content varchar(255),
+            title varchar(255),
+            primary key (id)
+        ) engine=InnoDB
+
+       create table doc_prop2 (
+            enabled bit,
+            doc_id bigint not null,
+            name varchar(255) not null,
+            value varchar(255),
+            primary key (doc_id, name)
+        ) engine=InnoDB
+     */
+
     @DisplayName("Document-PropValue 등록")
     @Test
     @Rollback(false)
@@ -35,9 +52,11 @@ class Document2RepositoryTest {
     @Test
     public void test2() throws Exception {
         // given
+        Document2 document = new Document2(null, "커피는 빈속에", "부제: 내과의사로 부자되는 법", props);
+        document2Repository.saveAndFlush(document);
         // when
-        Document2 document = document2Repository.findById(1L).get();
+        Document2 document2 = document2Repository.findById(1L).get();
         // then
-        assertThat(document.getProps()).containsExactlyEntriesOf(props);
+        assertThat(document2.getProps()).containsExactlyEntriesOf(props);
     }
 }

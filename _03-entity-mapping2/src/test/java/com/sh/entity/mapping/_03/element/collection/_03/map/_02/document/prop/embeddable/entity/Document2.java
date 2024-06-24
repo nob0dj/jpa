@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Entity
-@Table(name = "doc")
+@Table(name = "doc2")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Getter
@@ -22,7 +22,7 @@ public class Document2 {
     @Setter
     @ElementCollection
     @CollectionTable(
-            name = "doc_prop",
+            name = "doc_prop2",
             joinColumns = @JoinColumn(name = "doc_id")
     )
     @MapKeyColumn(name = "name")

@@ -18,12 +18,23 @@ class EventRepositoryTest {
     @Autowired
     EventRepository eventRepository;
 
+    /*
+        create table event (
+            id bigint not null auto_increment,
+            organizer_code bigint,
+            participant_code bigint,
+            organizer_name varchar(255),
+            participant_name varchar(255),
+            primary key (id)
+        ) engine=InnoDB
+     */
+
     @DisplayName("이벤트 등록")
     @Test
     public void test() throws Exception {
         // given
-        Client organizer = new Client(1L);
-        Client participant = new Client(2L);
+        Client organizer = new Client(1L, "홍길동");
+        Client participant = new Client(2L, "신사임당");
         Event event = new Event(null, organizer, participant);
         // when
         event = eventRepository.saveAndFlush(event);

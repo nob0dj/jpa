@@ -19,6 +19,28 @@ class WriterRepositoryTest {
     @Autowired
     WriterRepository writerRepository;
 
+    /*
+        create table writer (
+            id bigint not null auto_increment,
+            name varchar(255),
+            primary key (id)
+        ) engine=InnoDB
+
+        create table writer_address (
+            writer_id bigint not null,
+            addr1 varchar(255),
+            addr2 varchar(255),
+            zipcode varchar(255),
+            primary key (writer_id)
+        ) engine=InnoDB
+
+        create table writer_intro (
+            writer_id bigint not null,
+            content varchar(255),
+            content_type varchar(255),
+            primary key (writer_id)
+        ) engine=InnoDB
+     */
     @DisplayName("작가 등록 및 조회")
     @Test
     public void test() throws Exception {

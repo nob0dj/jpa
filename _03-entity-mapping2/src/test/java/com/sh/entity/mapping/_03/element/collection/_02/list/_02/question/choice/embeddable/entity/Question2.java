@@ -20,7 +20,7 @@ public class Question2 {
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(
-            name = "question_choice",
+            name = "question_choice2",
             joinColumns = @JoinColumn(name = "question_id")
     )
     @OrderColumn(name = "idx")

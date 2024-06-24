@@ -19,6 +19,20 @@ class HotelRepositoryTest {
     @Autowired
     HotelRepository hotelRepository;
 
+    /*
+        create table hotel (
+            year integer not null,
+            created_at datetime(6),
+            updated_at datetime(6),
+            addr1 varchar(255),
+            addr2 varchar(255),
+            id varchar(255) not null,
+            name varchar(255),
+            zipcode varchar(255),
+            grade enum ('S1','S2','S3','S4','S5','S6','S7'),
+            primary key (id)
+        ) engine=InnoDB
+     */
     @DisplayName("호텔 등록 및 조회")
     @Test
     public void test() throws Exception {

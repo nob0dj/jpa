@@ -20,6 +20,24 @@ class DocumentRepositoryTest {
 
     Map<String, String> props = Map.of("extension", "hwp", "size", "2345kb");
 
+    /*
+        create table doc (
+            id bigint not null auto_increment,
+            content varchar(255),
+            title varchar(255),
+            primary key (id)
+        ) engine=InnoDB
+
+        create table doc_prop (
+            enabled bit,
+            doc_id bigint not null,
+            name varchar(255) not null,
+            value varchar(255),
+            primary key (doc_id, name)
+        ) engine=InnoDB
+
+     */
+
     @DisplayName("Document-Props 등록")
     @Test
     @Rollback(false)
