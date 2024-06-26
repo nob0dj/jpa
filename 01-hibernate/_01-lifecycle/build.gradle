@@ -1,0 +1,42 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.sh'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // JPA3.* jakarta-persistence-api : jakarta.*
+    implementation group: 'org.hibernate', name: 'hibernate-core-jakarta', version: '5.6.15.Final'
+
+    // JPA2.2 java-persistence-api : javax.*
+//    implementation group: 'org.hibernate', name: 'hibernate-entitymanager', version: '5.6.15.Final'
+
+
+    implementation group: 'com.oracle.database.jdbc', name: 'ojdbc8', version: '23.2.0.0'
+
+    // intellij gradle 프로젝트환경에서 lombok 작동안함 이슈대응 plugin
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.30'
+    testCompileOnly 'org.projectlombok:lombok:1.18.30'
+
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'
+	testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
+
+
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.1'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.1'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: '5.10.1'
+    testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.24.2'
+
+    // mock 테스트 환경구성
+    testImplementation 'org.mockito:mockito-core:5.8.0'
+    testImplementation 'org.mockito:mockito-junit-jupiter:5.8.0'
+}
+
+test {
+    useJUnitPlatform()
+}
