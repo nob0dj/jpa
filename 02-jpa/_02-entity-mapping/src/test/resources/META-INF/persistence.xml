@@ -2,17 +2,19 @@
 <persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.2">
     <persistence-unit name="jpatest">
         <!-- entity클래스는 여기서 반드시 등록후 사용한다. -->
-        <class>com.sh.app._01.entity.Member</class>
-        <class>com.sh.app._02.column.Member</class>
-        <class>com.sh.app._03.primary.key._01.identity.strategy.Member</class>
-        <class>com.sh.app._03.primary.key._02.table.strategy.Member</class>
-        <class>com.sh.app._04._enum.Member</class>
-        <class>com.sh.app._05.access._01.field.Member</class>
-        <class>com.sh.app._05.access._02.property.Member</class>
-        <class>com.sh.app._06.composite.primary.key._01.embeddedid.ProfessorClazz</class>
-        <class>com.sh.app._06.composite.primary.key._01.embeddedid.post.PostLike</class>
-        <class>com.sh.app._06.composite.primary.key._02.idclass.ProfessorClazz</class>
-        <class>com.sh.app._06.composite.primary.key._02.idclass.post.PostLike</class>
+<!--        <class>com.sh.app._01.entity.Member</class>-->
+<!--        <class>com.sh.app._02.column.Member</class>-->
+<!--        <class>com.sh.app._03.primary.key._01.identity.strategy.Member</class>-->
+<!--        <class>com.sh.app._03.primary.key._02.table.strategy.Member</class>-->
+        <class>com.sh.app._03.primary.key._03.uuid.strategy.Goods</class>
+        <class>com.sh.app._03.primary.key._04.custom.id.generator.Commodity</class>
+<!--        <class>com.sh.app._04._enum.Member</class>-->
+<!--        <class>com.sh.app._05.access._01.field.Member</class>-->
+<!--        <class>com.sh.app._05.access._02.property.Member</class>-->
+<!--        <class>com.sh.app._06.composite.primary.key._01.embeddedid.ProfessorClazz</class>-->
+<!--        <class>com.sh.app._06.composite.primary.key._01.embeddedid.post.PostLike</class>-->
+<!--        <class>com.sh.app._06.composite.primary.key._02.idclass.ProfessorClazz</class>-->
+<!--        <class>com.sh.app._06.composite.primary.key._02.idclass.post.PostLike</class>-->
 
         <properties>
             <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
