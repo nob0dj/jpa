@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.2">
+    <persistence-unit name="jpatest">
+        <!-- entity클래스는 여기서 반드시 등록후 사용한다. -->
+<!--        <class>com.sh.app._01.jpql.Menu</class>-->
+<!--        <class>com.sh.app._02.parameter.Menu</class>-->
+<!--        <class>com.sh.app._03.projection.Category</class>-->
+<!--        <class>com.sh.app._03.projection.Menu</class>-->
+<!--        <class>com.sh.app._03.projection.MenuEntity</class>-->
+<!--        <class>com.sh.app._04.grouping.Menu</class>-->
+<!--        <class>com.sh.app._05.paging.Menu</class>-->
+<!--        <class>com.sh.app._06.join.Menu</class>-->
+<!--        <class>com.sh.app._06.join.Category</class>-->
+<!--        <class>com.sh.app._06.join.MenuEntity</class>-->
+<!--        <class>com.sh.app._07.subquery.Menu</class>-->
+<!--        <class>com.sh.app._07.subquery.Category</class>-->
+<!--        <class>com.sh.app._08.namedquery.Menu</class>-->
+        <class>com.sh.app._09.nativequery.Menu</class>
+
+        <properties>
+            <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/menudb"/>
+            <property name="jakarta.persistence.jdbc.user" value="sh"/>
+            <property name="jakarta.persistence.jdbc.password" value="sh"/>
+            <!-- 실행하는 sql구문을 여러줄에 걸쳐 확인하기 위한 속성 -->
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <!-- DDL 자동생성 옵션 -->
+            <!-- 개발초기 -->
+            <!-- create : 실행시마다 DDL실행 (기존의 테이블은 모두 drop)-->
+            <!-- create-drop : 실행시마다 DDL실행, 종료시 모든 테이블 drop-->
+            <!-- update : 변경사항만 alter DDL실행 (테이블이 없는 경우는 create, 컬럼추가만 반영(컬럼 변경은 무시))-->
+
+            <!-- 운영시 -->
+            <!-- validate : 생성/수정 DDL은 실행하지 않고, 유효성검사만 수행(테이블/컬럼 매핑에 문제 있는 경우 예외던짐)-->
+            <!-- none : 아무것도 하지 않음. 기본값 -->
+            <property name="hibernate.hbm2ddl.auto" value="none"/>
+        </properties>
+    </persistence-unit>
+</persistence>
