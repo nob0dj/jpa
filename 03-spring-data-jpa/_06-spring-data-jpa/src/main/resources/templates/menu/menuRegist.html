@@ -8,22 +8,23 @@
 <body>
 
 <main layout:fragment="main" class="container">
-    <form name="menuRegistFrm" action="" method="post">
-        <div>
+    <form name="menuRegistFrm" method="post">
+        <div class="my-3">
             <label>메뉴 이름 : </label>
             <input type="text" name="menuName">
         </div>
-        <div>
+        <div class="my-3">
             <label>메뉴 가격 : </label>
             <input type="number" name="menuPrice">
         </div>
-        <div>
+        <div class="my-3">
             <label>카테고리 : </label>
             <select name="categoryCode" id="categoryCode">
                 <!-- 카테고리명을 노출하고, 폼제출시 카테고리코드를 전송한다. -->
+                <option th:each="category : ${categories}" th:value="${category.categoryCode}" th:text="${category.categoryName}"></option>
             </select>
         </div>
-        <div>
+        <div class="my-3">
             <label>판매 상태 : </label>
             <select name="orderableStatus">
                 <option value="Y">판매가능</option>
