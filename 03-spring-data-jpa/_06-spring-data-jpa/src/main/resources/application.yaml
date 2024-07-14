@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: _06_spring_data_jpa
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost/menudb
+    username: sh
+    password: sh
+  jpa:
+    show-sql: true
+    generate-ddl: false
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: none
+        format_sql: true
+
+server:
+  servlet:
+    context-path: /app
+
+
+
+logging:
+  level:
+    root: info
+    com.sh.app: debug
