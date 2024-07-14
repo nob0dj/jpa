@@ -21,7 +21,9 @@
             <tbody>
             <tr th:each="menu : ${menus}">
                 <td th:text="${menu.menuCode}"></td>
-                <td th:text="${menu.menuName}"></td>
+                <td>
+                    <a th:href="|@{/menu/menuDetail?menuCode=}${menu.menuCode}|" th:text="${menu.menuName}"></a>
+                </td>
                 <td th:text="${menu.menuPrice}"></td>
                 <td th:text="${menu.categoryCode}"></td>
                 <td th:text="${menu.orderableStatus}"></td>

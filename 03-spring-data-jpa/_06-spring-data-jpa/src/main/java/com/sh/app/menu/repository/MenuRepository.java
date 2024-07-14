@@ -38,7 +38,9 @@ public interface MenuRepository extends JpaRepository<Menu, Long> {
             new com.sh.app.menu.dto.MenuCategoryResponseDto(
                 m.menuCode,
                 m.menuName,
-                c.categoryName)
+                m.menuPrice,
+                c.categoryName,
+                m.orderableStatus)
         from
             Menu m left join Category c
                 on m.categoryCode = c.categoryCode
