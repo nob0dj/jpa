@@ -29,7 +29,7 @@ public class MenuController {
         pageable = PageRequest.of(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1,
                 pageable.getPageSize());
         Page<Menu> menuPage = menuService.findAll(pageable);
-        log.debug("menuPage = {}", menuPage.getContent());
+        log.debug("menus = {}", menuPage.getContent());
         model.addAttribute("menus", menuPage.getContent());
 
         int page = menuPage.getNumber() + 1;
